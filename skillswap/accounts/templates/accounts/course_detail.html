@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto pt-28 px-4 text-white">
+
+    <h1 class="text-3xl font-bold text-cyan-400">{{ course.title }}</h1>
+    <p class="text-gray-300 mt-2">{{ course.description }}</p>
+
+    <p class="mt-4 text-sm">
+        <span class="text-cyan-300">Instructor:</span> {{ course.instructor.username }}
+    </p>
+
+    <div class="mt-6">
+        {% if not enrolled %}
+            <a href="{% url 'enroll' course.id %}" class="bg-cyan-500 text-black px-4 py-2 rounded-lg font-semibold">
+                Enroll Now
+            </a>
+        {% endif %}
+    </div>
+
+    <hr class="my-6 border-gray-700">
+
+    <div class="flex justify-between items-center mb-3">
+        <h2 class="text-xl font-semibold">Lessons</h2>
+
+        {% if request.user == course.instructor %}
+        <a href="{% url 'add_lesson' course.id %}" class="bg-cyan-500 text-black px-3 py-1 rounded-md text-sm font-semibold">
+            + Add Lesson
+        </a>
+        {% endif %}
+    </div>
+
+    {% if lessons %}
+        <ul class="space-y-2">
+            {% for lesson in lessons %}
+                <li class="bg-gray-800 p-3 rounded-md border border-gray-700">
+                    <a href="{% url 'lesson_detail' lesson.id %}" class="text-cyan-400 font-medium">
+                        {{ lesson.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-gray-400">No lessons yet.</p>
+    {% endif %}
+
+</div>
+
+<div class="mt-4">
+  <div class="text-sm text-gray-300 mb-1">
+     Progress: {{ completed_lessons }}/{{ total_lessons }} lessons ({{ progress }}%)
+  </div>
+
+  <div class="w-full bg-gray-700 rounded h-3">
+    <div class="bg-cyan-500 h-3 rounded" style="width: {{ progress }}%"></div>
+  </div>
+</div>
+
+<div class="mt-5">
+  <h2 class="text-lg font-bold text-cyan-400">Rating: ⭐ {{ average_rating }}/5</h2>
+
+  {% if enrolled %}
+  <form method="POST" class="mt-2 space-y-2">
+    {% csrf_token %}
+    <select name="rating" class="bg-gray-900 border border-gray-700 p-2 rounded text-white">
+        <option value="5">⭐ 5</option>
+        <option value="4">⭐ 4</option>
+        <option value="3">⭐ 3</option>
+        <option value="2">⭐ 2</option>
+        <option value="1">⭐ 1</option>
+    </select>
+
+    <textarea name="comment" placeholder="Write a review..."
+              class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white mt-2"></textarea>
+
+    <button class="bg-cyan-500 text-black px-3 py-1 rounded font-semibold">
+      Submit Review
+    </button>
+  </form>
+  {% endif %}
+
+  <div class="mt-4 space-y-3">
+    {% for r in reviews %}
+      <div class="bg-gray-800 p-3 rounded border border-gray-700">
+        <div class="font-bold text-cyan-300">{{ r.user.username }} — ⭐ {{ r.rating }}</div>
+        <div class="text-gray-300">{{ r.comment }}</div>
+      </div>
+    {% empty %}
+      <p class="text-gray-400 text-sm">No reviews yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

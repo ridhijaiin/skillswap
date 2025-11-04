@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto pt-28 px-4 text-white">
+
+    <h1 class="text-3xl font-bold text-cyan-400 mb-6 text-center">
+        Add Lesson to {{ course.title }}
+    </h1>
+
+    <form method="POST" enctype="multipart/form-data"
+          class="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-lg space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label class="block text-gray-300 mb-1 font-medium">Lesson Title</label>
+            <input type="text" name="title" required
+                   class="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400">
+        </div>
+
+        <div>
+            <label class="block text-gray-300 mb-1 font-medium">Lesson Content</label>
+            <textarea name="content" rows="4" required
+                      class="w-full p-3 rounded bg-gray-900 border border-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400"></textarea>
+        </div>
+
+        <div>
+            <label class="block text-gray-300 mb-1 font-medium">Upload Material (PDF/Docs)</label>
+            <input type="file" name="file"
+                   class="w-full text-gray-300 bg-gray-900 border border-gray-700 p-2 rounded">
+        </div>
+
+        <div>
+            <label class="block text-gray-300 mb-1 font-medium">YouTube Video URL (optional)</label>
+            <input type="text" name="video_url"
+                   placeholder="https://www.youtube.com/watch?v=..."
+                   class="w-full p-2 rounded bg-gray-900 border border-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400">
+        </div>
+
+        <button class="w-full bg-cyan-500 text-black py-3 rounded-lg font-semibold hover:bg-cyan-400 transition">
+            Add Lesson
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

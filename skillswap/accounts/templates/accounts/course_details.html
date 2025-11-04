@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="padding-top:120px; max-width:700px; margin:auto; color:white;">
+    <h2 style="color:#00eaff;">{{ course.title }}</h2>
+
+    <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
+    <p><strong>Description:</strong> {{ course.description }}</p>
+    
+    <hr>
+
+    {% if is_enrolled %}
+        <button style="background:gray; padding:12px 20px; border:none; border-radius:6px; cursor:not-allowed;">
+            ✅ Already Enrolled
+        </button>
+    {% else %}
+        <a href="{% url 'enroll' course.id %}"
+           style="background:#00eaff; padding:12px 20px; border-radius:6px; text-decoration:none; color:#000; font-weight:bold;">
+            Enroll Now
+        </a>
+    {% endif %}
+    
+    <br><br>
+    <a href="{% url 'courses' %}" style="color:#fff; text-decoration:underline;">← Back to Courses</a>
+</div>
+
+{% endblock %}

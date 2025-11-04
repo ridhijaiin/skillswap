@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<div class="pt-32 pb-20 text-center max-w-4xl mx-auto px-6">
+
+  <h1 class="text-4xl md:text-6xl font-bold text-cyan-400 leading-tight">
+    Learn & Teach Skills Together
+  </h1>
+
+  <p class="text-gray-300 text-lg mt-4">
+    Exchange skills, earn credits, and unlock new learning opportunities.  
+    A community-powered learning platform built for growth.
+  </p>
+
+  <div class="mt-8 flex justify-center gap-4">
+    {% if user.is_authenticated %}
+      <a href="{% url 'dashboard' %}"
+         class="bg-cyan-500 text-black font-semibold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">
+        Go to Dashboard
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}"
+         class="bg-cyan-500 text-black font-semibold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">
+        Get Started
+      </a>
+      <a href="{% url 'signup' %}"
+         class="border border-cyan-400 text-cyan-400 font-semibold px-6 py-3 rounded-lg hover:bg-cyan-400 hover:text-black transition">
+        Sign Up
+      </a>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- FEATURES SECTION -->
+<div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 px-6 pb-20">
+
+  <div class="bg-gray-800 border border-gray-700 p-6 rounded-xl text-center hover:shadow-lg hover:shadow-cyan-500/20 transition">
+    <h2 class="text-xl font-semibold text-cyan-300 mb-2">Teach & Earn Credits</h2>
+    <p class="text-gray-300">Share your knowledge and earn credits to learn new skills from others.</p>
+  </div>
+
+  <div class="bg-gray-800 border border-gray-700 p-6 rounded-xl text-center hover:shadow-lg hover:shadow-cyan-500/20 transition">
+    <h2 class="text-xl font-semibold text-cyan-300 mb-2">Access Quality Courses</h2>
+    <p class="text-gray-300">Explore courses created by passionate learners and instructors.</p>
+  </div>
+
+  <div class="bg-gray-800 border border-gray-700 p-6 rounded-xl text-center hover:shadow-lg hover:shadow-cyan-500/20 transition">
+    <h2 class="text-xl font-semibold text-cyan-300 mb-2">Track Your Progress</h2>
+    <p class="text-gray-300">Stay motivated with personalized progress tracking and credits.</p>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+<nav class="bg-gray-800 fixed w-full z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+
+    <a href="/" class="text-cyan-400 font-bold text-2xl">SkillSwap</a>
+
+    <ul class="hidden md:flex gap-8 items-center text-lg">
+
+      <li><a href="{% url 'home' %}" class="hover:text-cyan-400">Home</a></li>
+
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard' %}" class="hover:text-cyan-400">Dashboard</a></li>
+        <li><a href="{% url 'courses' %}" class="hover:text-cyan-400">Courses</a></li>
+        <li><a href="{% url 'logout_view' %}" class="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600">Logout</a></li>
+        <li><a href="{% url 'profile' %}" class="hover:text-cyan-400">Profile</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}" class="hover:text-cyan-400">Login</a></li>
+        <li><a href="{% url 'signup' %}" class="bg-cyan-400 px-4 py-2 text-black font-bold rounded hover:bg-cyan-300">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

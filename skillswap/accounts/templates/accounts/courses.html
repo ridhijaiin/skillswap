@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="padding-top:120px; color:white; text-align:center;">
+    <h2 style="margin-bottom:20px;">Available Courses</h2>
+
+    {% if courses %}    
+        <div class="course-grid" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
+            {% for c in courses %}
+            <div class="course-card" style="
+                background:#111a2e;
+                padding:20px;
+                border-radius:8px;
+                width:300px;
+                border:1px solid #203354;
+            ">
+                <h3>
+                    <a href="{% url 'course_detail' c.id %}" style="color:#00eaff; text-decoration:none;">
+                        {{ c.title }}
+                    </a>
+                </h3>
+
+                <p>{{ c.description }}</p>
+                <p><small>Instructor: {{ c.instructor.username }}</small></p>
+
+                <a href="{% url 'enroll' c.id %}" class="btn" style="
+                    display:inline-block;
+                    margin-top:10px;
+                    padding:10px 20px;
+                    background:#00eaff;
+                    color:#000;
+                    font-weight:bold;
+                    border-radius:6px;
+                    text-decoration:none;">
+                    Enroll
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No courses available yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

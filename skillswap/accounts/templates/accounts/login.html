@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center pt-20">
+  <div class="bg-gray-800 border border-gray-700 p-8 rounded-2xl w-full max-w-md shadow-xl">
+
+    <h2 class="text-2xl font-bold text-center text-cyan-400 mb-6">Welcome Back 👋</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <label class="block text-gray-300 mb-1">Username</label>
+      <input type="text" name="username" required
+             class="w-full p-2 mb-4 rounded bg-gray-900 border border-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400">
+
+      <label class="block text-gray-300 mb-1">Password</label>
+      <input type="password" name="password" required
+             class="w-full p-2 mb-4 rounded bg-gray-900 border border-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400">
+
+      <button class="w-full bg-cyan-500 text-black font-semibold py-2 rounded hover:bg-cyan-400 transition">
+        Login
+      </button>
+    </form>
+
+    <p class="text-gray-400 text-center text-sm mt-4">
+      Don't have an account?
+      <a href="{% url 'signup' %}" class="text-cyan-400 hover:underline">Sign up</a>
+    </p>
+
+  </div>
+</div>
+
+{% endblock %}

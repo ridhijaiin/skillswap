@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Your Achievements 🏆</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="upload-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Upload Certificate</button>
+    </form>
+
+    <hr>
+
+    <h3>Uploaded Certificates</h3>
+
+    {% if achievements %}
+        <ul class="cert-list">
+        {% for a in achievements %}
+            <li>
+                <strong>{{ a.title }}</strong>  
+                ({{ a.uploaded_at|date:"d M Y" }})  
+                - <a href="{{ a.certificate.url }}" target="_blank">View</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No certificates uploaded yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

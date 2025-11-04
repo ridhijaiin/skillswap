@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-3xl mx-auto pt-28 px-4 text-white">
+
+    <h1 class="text-2xl font-bold text-cyan-400">{{ lesson.title }}</h1>
+
+    <p class="mt-3 text-gray-300 leading-relaxed whitespace-pre-line">
+        {{ lesson.content }}
+    </p>
+
+    {% if lesson.video_url %}
+    <div class="mt-6">
+        <iframe class="w-full h-72 rounded-lg border border-gray-700"
+                src="{{ lesson.video_url|safe|replace:'watch?v=','embed/' }}"
+                allowfullscreen></iframe>
+    </div>
+    {% endif %}
+
+    {% if lesson.file %}
+    <div class="mt-4">
+        <a href="{{ lesson.file.url }}" download
+           class="underline text-cyan-300 hover:text-cyan-200">
+           Download Lesson Resource
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="mt-6">
+        {% if completed %}
+        <button class="bg-green-600 px-4 py-2 rounded font-semibold cursor-default">Completed ✅</button>
+        {% else %}
+        <a href="{% url 'mark_lesson_done' lesson.id %}"
+           class="bg-cyan-500 text-black px-4 py-2 rounded font-semibold">
+           Mark as Done ✅
+        </a>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
